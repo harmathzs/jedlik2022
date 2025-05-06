@@ -25,7 +25,7 @@ public class Ad {
 		this.Floors = Integer.parseInt(fieldValues[3]);
 		this.Area = Integer.parseInt(fieldValues[4]);
 		this.Description = fieldValues[5];
-		this.FreeOfCharge = Boolean.parseBoolean(fieldValues[6]);
+		this.FreeOfCharge = fieldValues[6].contains("1");
 		this.ImageUrl = fieldValues[7];
 		this.CreateAt = LocalDate.parse(fieldValues[8]);
 
