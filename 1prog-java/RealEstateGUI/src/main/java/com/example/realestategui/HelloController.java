@@ -9,7 +9,9 @@ import javafx.scene.control.ListView;
 
 import java.net.URL;
 import java.sql.*;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class HelloController implements Initializable {
 	@FXML
@@ -17,6 +19,9 @@ public class HelloController implements Initializable {
 
 	@FXML
 	private Label welcomeText;
+
+	public ResultSet rsSaved;
+	public HashSet<String> sellerNames;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -26,24 +31,23 @@ public class HelloController implements Initializable {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ingatlan", "root", "");
 
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(
+			rsSaved = stmt.executeQuery(
 				"""
 					SELECT sellers.id, sellers.name, sellers.phone, realestates.id, realestates.sellerid
 					FROM realestates
 					INNER JOIN sellers ON realestates.sellerid = sellers.id
 				""");
+			ResultSet rs = rsSaved;
+			sellerNames = new HashSet<>(){};
 			while (rs.next()) {
-				String name = rs.getString("name");
-//				int age = rs.getInt("age");
-//				System.out.println(name + ", " + age);
+				String sellerName = rs.getString("name");
+				sellerNames.add(sellerName);
 			}
 			rs.close();
 			stmt.close();
 
 
-			ObservableList<String> names = FXCollections.observableArrayList(
-				"Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise"
-			);
+			ObservableList<String> names = FXCollections.observableArrayList(sellerNames);
 			sellerNamesListview.setItems(names);
 
 			conn.close();
