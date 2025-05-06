@@ -60,4 +60,15 @@ public class Ad {
 		}
 		return ads;
 	}
+
+	public double DistanceTo(String otherLatLong) {
+		String[] split1 = this.LatLong.split(",");
+		double x1 = Double.parseDouble(split1[0]);
+		double y1 = Double.parseDouble(split1[1]);
+		String[] split2 = otherLatLong.split(",");
+		double x2 = Double.parseDouble(split2[0]);
+		double y2 = Double.parseDouble(split2[1]);
+
+		return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+	}
 }

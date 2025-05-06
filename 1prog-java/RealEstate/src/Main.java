@@ -5,7 +5,7 @@ public class Main {
 		ArrayList<Ad> ads = Ad.LoadFromCsv("src/realestates.csv");
 
 		// 6. feladat:
-		double sumOfFloor0areas = 0;
+		double sumOfFloor0areas = 0.00;
 		int countOfFloor0areas = 0;
 		for (Ad ad: ads) {
 			if (ad.Floors<1) {
@@ -15,7 +15,7 @@ public class Main {
 		}
 		double avgOfFloor0areas = sumOfFloor0areas / countOfFloor0areas;
 		System.out.print("1. Földszinti ingatlanok átlagos alapterülete: ");
-		System.out.print(Math.round(100.0*avgOfFloor0areas)/100.0);
+		System.out.print(Math.round(100.00*avgOfFloor0areas)/100.00);
 		System.out.println(" m2");
 
 	}
