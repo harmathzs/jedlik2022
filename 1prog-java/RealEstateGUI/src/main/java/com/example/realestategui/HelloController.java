@@ -1,15 +1,33 @@
 package com.example.realestategui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class HelloController {
+public class HelloController implements Initializable {
+	@FXML
+	public ListView<String> sellerNamesListview;
+
 	@FXML
 	private Label welcomeText;
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		ObservableList<String> names = FXCollections.observableArrayList(
+			"Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise"
+		);
+		sellerNamesListview.setItems(names);
+	}
 
 	@FXML
 	protected void onHelloButtonClick() {
