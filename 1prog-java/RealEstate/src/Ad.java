@@ -22,6 +22,7 @@ public class Ad {
 
 	public Ad(String line) {
 		String[] fieldValues = line.split(";");
+
 		this.Id = Integer.parseInt(fieldValues[0]);
 		this.Rooms = Integer.parseInt(fieldValues[1]);
 		this.LatLong = fieldValues[2];
@@ -32,9 +33,14 @@ public class Ad {
 		this.ImageUrl = fieldValues[7];
 		this.CreateAt = LocalDate.parse(fieldValues[8]);
 
-		//this.Seller = new Seller(fieldValues[10]);
-		//this.Category = Category.valueOf(fieldValues[1]);
+		this.Seller = new Seller();
+		this.Seller.Id = Integer.parseInt(fieldValues[9]);
+		this.Seller.Name = fieldValues[10];
+		this.Seller.Phone = fieldValues[11];
 
+		this.Category = new Category();
+		this.Category.Id = Integer.parseInt(fieldValues[12]);
+		this.Category.Name = fieldValues[13];
 	}
 
 	public static ArrayList<Ad> LoadFromCsv(String fileName) {
