@@ -1,11 +1,7 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 public class Ad {
 	public int Area;
