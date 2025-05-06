@@ -1,4 +1,4 @@
 public class Category {
-	public Integer Id;
+	public int Id;
 	public String Name;
 }

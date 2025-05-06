@@ -2,25 +2,38 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 public class Ad {
-	public Integer Area;
+	public int Area;
 	public Category Category;
-	public LocalDateTime CreateAt;
+	public LocalDate CreateAt;
 	public String Description;
-	public Integer Floors;
-	public Boolean FreeOfCharge;
-	public Integer Id;
+	public int Floors;
+	public boolean FreeOfCharge;
+	public int Id;
 	public String ImageUrl;
 	public String LatLong;
-	public Integer Rooms;
+	public int Rooms;
 	public Seller Seller;
 
 	public Ad(String line) {
+		String[] fieldValues = line.split(";");
+		this.Id = Integer.parseInt(fieldValues[0]);
+		this.Rooms = Integer.parseInt(fieldValues[1]);
+		this.LatLong = fieldValues[2];
+		this.Floors = Integer.parseInt(fieldValues[3]);
+		this.Area = Integer.parseInt(fieldValues[4]);
+		this.Description = fieldValues[5];
+		this.FreeOfCharge = Boolean.parseBoolean(fieldValues[6]);
+		this.ImageUrl = fieldValues[7];
+		this.CreateAt = LocalDate.parse(fieldValues[8]);
+
+		//this.Seller = new Seller(fieldValues[10]);
+		//this.Category = Category.valueOf(fieldValues[1]);
 
 	}
 
@@ -36,7 +49,8 @@ public class Ad {
 			f.close();
 
 			String[] lines = csv.toString().split("\n");
-			for (String line: lines) {
+			for (int i=1; i<lines.length; i++) {
+				String line = lines[i];
 				ads.add(new Ad(line));
 			}
 		} catch (IOException e) {

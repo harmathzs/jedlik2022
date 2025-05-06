@@ -1,5 +1,5 @@
 public class Seller {
-	public Integer Id;
+	public int Id;
 	public String Name;
 	public String Phone;
 }
