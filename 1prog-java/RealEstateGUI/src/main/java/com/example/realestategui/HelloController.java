@@ -8,11 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class HelloController implements Initializable {
 	@FXML
@@ -28,15 +25,24 @@ public class HelloController implements Initializable {
 
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ingatlan", "root", "");
 
+//			Statement stmt = conn.createStatement();
+//			ResultSet rs = stmt.executeQuery("SELECT id, name, phone FROM sellers");
+//			while (rs.next()) {
+//				String name = rs.getString("name");
+//				int age = rs.getInt("age");
+//				System.out.println(name + ", " + age);
+//			}
+//			rs.close();
+//			stmt.close();
+
+
 			ObservableList<String> names = FXCollections.observableArrayList(
 				"Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise"
 			);
 			sellerNamesListview.setItems(names);
 
 			conn.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} catch (ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 	}
