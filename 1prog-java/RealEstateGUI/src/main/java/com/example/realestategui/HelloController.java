@@ -25,15 +25,20 @@ public class HelloController implements Initializable {
 
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ingatlan", "root", "");
 
-//			Statement stmt = conn.createStatement();
-//			ResultSet rs = stmt.executeQuery("SELECT id, name, phone FROM sellers");
-//			while (rs.next()) {
-//				String name = rs.getString("name");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(
+				"""
+					SELECT sellers.id, sellers.name, sellers.phone, realestates.id, realestates.sellerid
+					FROM realestates
+					INNER JOIN sellers ON realestates.sellerid = sellers.id
+				""");
+			while (rs.next()) {
+				String name = rs.getString("name");
 //				int age = rs.getInt("age");
 //				System.out.println(name + ", " + age);
-//			}
-//			rs.close();
-//			stmt.close();
+			}
+			rs.close();
+			stmt.close();
 
 
 			ObservableList<String> names = FXCollections.observableArrayList(
