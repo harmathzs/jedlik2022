@@ -23,10 +23,22 @@ public class HelloController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ObservableList<String> names = FXCollections.observableArrayList(
-			"Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise"
-		);
-		sellerNamesListview.setItems(names);
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ingatlan", "root", "");
+
+			ObservableList<String> names = FXCollections.observableArrayList(
+				"Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise"
+			);
+			sellerNamesListview.setItems(names);
+
+			conn.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@FXML
