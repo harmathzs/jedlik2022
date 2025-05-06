@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="748.0" text="Ingatlanok" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="748.0" text="Ingatlanok" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.realestategui.HelloController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="549.0" prefWidth="751.0">
          <children>
@@ -17,7 +17,7 @@
             <Label id="eladoNeveLabel" layoutX="403.0" layoutY="14.0" text="&lt;elado-neve-label&gt;" />
             <Label id="eladoTelefonszamaLabel" layoutX="403.0" layoutY="53.0" text="&lt;elado-telefonszama-label&gt;" />
             <Label id="hirdetesekSzamaLabel" layoutX="403.0" layoutY="145.0" text="&lt;hirdetesek-szama-label&gt;" />
-            <Button id="hirdetesekBetolteseButton" layoutX="225.0" layoutY="99.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="352.0" text="Hirdetések betöltése" />
+            <Button id="hirdetesekBetolteseButton" layoutX="225.0" layoutY="99.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="352.0" text="Hirdetések betöltése" onAction="#onHirdetesekBetolteseButtonClick" />
          </children></AnchorPane>
   </content>
 </TitledPane>
