@@ -1,6 +1,7 @@
 module com.example.realestategui {
 	requires javafx.controls;
 	requires javafx.fxml;
+	requires java.sql;
 
 
 	opens com.example.realestategui to javafx.fxml;

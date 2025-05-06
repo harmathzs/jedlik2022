@@ -3,6 +3,10 @@ package com.example.realestategui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class HelloController {
 	@FXML
 	private Label welcomeText;
