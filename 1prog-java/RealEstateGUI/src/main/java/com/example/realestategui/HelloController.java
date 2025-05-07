@@ -69,16 +69,11 @@ public class HelloController implements Initializable {
 			ObservableList<String> names = FXCollections.observableArrayList(sellerNames);
 			sellerNamesListview.setItems(names);
 
-			conn.close();
+			sellerNamesListview.getSelectionModel().selectedItemProperty().addListener(
+				(observable, oldValue, newValue) -> onSellerSelected()
+			);
 
-			// Listen for selection changes
-			sellerNamesListview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-				if (newSelection != null) {
-					//System.out.println("Selected item: " + newSelection);
-					// Handle the selected item here
-					String selectedName = newSelection;
-				}
-			});
+			conn.close();
 		} catch (SQLException | ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
@@ -92,5 +87,14 @@ public class HelloController implements Initializable {
 	@FXML
 	protected void onHirdetesekBetolteseButtonClick() {
 		int debugger = 0;
+	}
+
+	@FXML
+	protected void onSellerSelected() {
+		String selectedName = sellerNamesListview.getSelectionModel().getSelectedItem();
+		if (selectedName != null) {
+			// Now you can use this.sellerNamesListview and other fields
+			int debugger = 0;
+		}
 	}
 }
