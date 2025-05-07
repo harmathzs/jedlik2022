@@ -26,9 +26,13 @@ public class HelloController implements Initializable {
 	@FXML
 	private Label welcomeText;
 
+	@FXML
 	public ResultSet rsAllSaved;
+	@FXML
 	public ResultSet rsNamesSaved;
+	@FXML
 	public HashSet<String> sellerNamesSet;
+	@FXML
 	public ArrayList<String> sellerNames;
 
 	@Override
