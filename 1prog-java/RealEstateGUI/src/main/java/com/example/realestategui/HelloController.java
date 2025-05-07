@@ -26,6 +26,8 @@ public class HelloController implements Initializable {
 	@FXML
 	private Label welcomeText;
 
+	public Connection conn;
+
 	@FXML
 	public ResultSet rsAllSaved;
 	@FXML
@@ -44,16 +46,9 @@ public class HelloController implements Initializable {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ingatlan", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ingatlan", "root", "");
 
-			Statement stmtAll = conn.createStatement();
-			rsAllSaved = stmtAll.executeQuery(
-				"""
-					SELECT sellers.id AS SELLERIDFIELD, sellers.name AS SELLERNAMEFIELD, sellers.phone AS SELLERPHONEFIELD, realestates.id AS ADIDFIELD, realestates.sellerid AS ADSELLERIDFIELD
-					FROM realestates
-					INNER JOIN sellers ON realestates.sellerid = sellers.id
-					ORDER BY sellers.name ASC
-				""");
+
 			Statement stmtNames = conn.createStatement();
 			rsNamesSaved = stmtNames.executeQuery(
 				"""
@@ -105,6 +100,15 @@ public class HelloController implements Initializable {
 		selectedName = sellerNamesListview.getSelectionModel().getSelectedItem();
 		if (selectedName != null) {
 			// Now you can use this.sellerNamesListview and other fields
+			Statement stmtAll = conn.createStatement();
+			rsAllSaved = stmtAll.executeQuery(
+				"""
+					SELECT sellers.id AS SELLERIDFIELD, sellers.name AS SELLERNAMEFIELD, sellers.phone AS SELLERPHONEFIELD, realestates.id AS ADIDFIELD, realestates.sellerid AS ADSELLERIDFIELD
+					FROM realestates
+					INNER JOIN sellers ON realestates.sellerid = sellers.id
+					ORDER BY sellers.name ASC
+				""");
+
 			ResultSet rs = rsAllSaved;
 			while (rs.next()) {
 				String sellerName = rs.getString("SELLERNAMEFIELD");
