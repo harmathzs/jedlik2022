@@ -46,15 +46,16 @@ public class HelloController implements Initializable {
 
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ingatlan", "root", "");
 
-			Statement stmt = conn.createStatement();
-			rsAllSaved = stmt.executeQuery(
+			Statement stmtAll = conn.createStatement();
+			rsAllSaved = stmtAll.executeQuery(
 				"""
 					SELECT sellers.id, sellers.name, sellers.phone, realestates.id, realestates.sellerid
 					FROM realestates
 					INNER JOIN sellers ON realestates.sellerid = sellers.id
 					ORDER BY sellers.name ASC
 				""");
-			rsNamesSaved = stmt.executeQuery(
+			Statement stmtNames = conn.createStatement();
+			rsNamesSaved = stmtNames.executeQuery(
 				"""
 					SELECT DISTINCT name
 					FROM sellers
