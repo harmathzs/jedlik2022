@@ -91,8 +91,22 @@ public class HelloController implements Initializable {
 	}
 
 	@FXML
-	protected void onHirdetesekBetolteseButtonClick() {
-		int debugger = 0;
+	protected void onHirdetesekBetolteseButtonClick() throws SQLException {
+		PreparedStatement stmtCount = conn.prepareStatement("""
+			SELECT COUNT(*) AS CNT
+			FROM realestates
+			WHERE sellerid = ?
+		""");
+		stmtCount.setInt(1, selectedSellerId);
+		ResultSet rsCount = stmtCount.executeQuery();
+
+		while (rsCount.next()) {
+			int cnt = rsCount.getInt("CNT");
+			if (cnt>=0) {
+				hirdetesekSzamaLabel.setText(String.valueOf(cnt));
+				break;
+			}
+		}
 	}
 
 	@FXML
