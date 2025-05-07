@@ -66,6 +66,15 @@ public class HelloController implements Initializable {
 			sellerNamesListview.setItems(names);
 
 			conn.close();
+
+			// Listen for selection changes
+			sellerNamesListview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+				if (newSelection != null) {
+					//System.out.println("Selected item: " + newSelection);
+					// Handle the selected item here
+					String selectedName = newSelection;
+				}
+			});
 		} catch (SQLException | ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
