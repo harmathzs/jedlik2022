@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -16,12 +17,18 @@ import java.util.Set;
 public class HelloController implements Initializable {
 	@FXML
 	public ListView<String> sellerNamesListview;
+	@FXML
+	public Label eladoNeveLabel;
+	@FXML
+	public Label eladoTelefonszamaLabel;
+	@FXML
+	public Label hirdetesekSzamaLabel;
 
 	@FXML
 	private Label welcomeText;
 
 	public ResultSet rsSaved;
-	public HashSet<String> sellerNames;
+	public ArrayList<String> sellerNames;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -36,9 +43,10 @@ public class HelloController implements Initializable {
 					SELECT sellers.id, sellers.name, sellers.phone, realestates.id, realestates.sellerid
 					FROM realestates
 					INNER JOIN sellers ON realestates.sellerid = sellers.id
+					ORDER BY sellers.name ASC
 				""");
 			ResultSet rs = rsSaved;
-			sellerNames = new HashSet<>(){};
+			sellerNames = new ArrayList<>(){};
 			while (rs.next()) {
 				String sellerName = rs.getString("name");
 				sellerNames.add(sellerName);
