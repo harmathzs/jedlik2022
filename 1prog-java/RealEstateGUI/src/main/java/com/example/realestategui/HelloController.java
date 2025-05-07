@@ -66,8 +66,8 @@ public class HelloController implements Initializable {
 				String sellerName = rsNamesSaved.getString("name");
 				sellerNames.add(sellerName);
 			}
-			rsNamesSaved.close();
-			stmt.close();
+			//rsNamesSaved.close();
+			//stmt.close();
 
 
 			ObservableList<String> names = FXCollections.observableArrayList(sellerNames);
@@ -83,7 +83,7 @@ public class HelloController implements Initializable {
 				}
 			);
 
-			conn.close();
+			//conn.close();
 		} catch (SQLException | ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
