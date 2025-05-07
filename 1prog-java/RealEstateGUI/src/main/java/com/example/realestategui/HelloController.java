@@ -34,6 +34,10 @@ public class HelloController implements Initializable {
 	public HashSet<String> sellerNamesSet;
 	@FXML
 	public ArrayList<String> sellerNames;
+	@FXML
+	public String selectedName;
+	@FXML
+	public int selectedSellerId;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -70,7 +74,13 @@ public class HelloController implements Initializable {
 			sellerNamesListview.setItems(names);
 
 			sellerNamesListview.getSelectionModel().selectedItemProperty().addListener(
-				(observable, oldValue, newValue) -> onSellerSelected()
+				(observable, oldValue, newValue) -> {
+					try {
+						onSellerSelected();
+					} catch (SQLException e) {
+						throw new RuntimeException(e);
+					}
+				}
 			);
 
 			conn.close();
@@ -90,11 +100,20 @@ public class HelloController implements Initializable {
 	}
 
 	@FXML
-	protected void onSellerSelected() {
-		String selectedName = sellerNamesListview.getSelectionModel().getSelectedItem();
+	protected void onSellerSelected() throws SQLException {
+		selectedName = sellerNamesListview.getSelectionModel().getSelectedItem();
 		if (selectedName != null) {
 			// Now you can use this.sellerNamesListview and other fields
-			int debugger = 0;
+			ResultSet rs = rsAllSaved;
+			while (rs.next()) {
+				String sellerName = rs.getString("name");
+				if (sellerName == selectedName) {
+					selectedSellerId = rs.getInt("seller.id");
+
+					eladoNeveLabel.setText(sellerName);
+					eladoTelefonszamaLabel.setText(rs.getString("phone"));
+				}
+			}
 		}
 	}
 }
