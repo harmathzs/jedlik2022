@@ -49,7 +49,7 @@ public class HelloController implements Initializable {
 			Statement stmtAll = conn.createStatement();
 			rsAllSaved = stmtAll.executeQuery(
 				"""
-					SELECT sellers.id, sellers.name, sellers.phone, realestates.id, realestates.sellerid
+					SELECT sellers.id AS SELLERIDFIELD, sellers.name AS SELLERNAMEFIELD, sellers.phone AS SELLERPHONEFIELD, realestates.id AS ADIDFIELD, realestates.sellerid AS ADSELLERIDFIELD
 					FROM realestates
 					INNER JOIN sellers ON realestates.sellerid = sellers.id
 					ORDER BY sellers.name ASC
@@ -107,12 +107,12 @@ public class HelloController implements Initializable {
 			// Now you can use this.sellerNamesListview and other fields
 			ResultSet rs = rsAllSaved;
 			while (rs.next()) {
-				String sellerName = rs.getString("name");
-				if (sellerName == selectedName) {
-					selectedSellerId = rs.getInt("seller.id");
+				String sellerName = rs.getString("SELLERNAMEFIELD");
+				if (sellerName.contains(selectedName)) {
+					selectedSellerId = rs.getInt("SELLERIDFIELD");
 
 					eladoNeveLabel.setText(sellerName);
-					eladoTelefonszamaLabel.setText(rs.getString("phone"));
+					eladoTelefonszamaLabel.setText(rs.getString("SELLERPHONEFIELD"));
 
 					break;
 				}
