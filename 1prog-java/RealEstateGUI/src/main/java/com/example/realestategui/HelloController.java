@@ -113,6 +113,8 @@ public class HelloController implements Initializable {
 
 					eladoNeveLabel.setText(sellerName);
 					eladoTelefonszamaLabel.setText(rs.getString("phone"));
+
+					break;
 				}
 			}
 		}
