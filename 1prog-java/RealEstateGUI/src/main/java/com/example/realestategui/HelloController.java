@@ -113,28 +113,27 @@ public class HelloController implements Initializable {
 	protected void onSellerSelected() throws SQLException {
 		selectedName = sellerNamesListview.getSelectionModel().getSelectedItem();
 		if (selectedName != null) {
-			// Now you can use this.sellerNamesListview and other fields
-			Statement stmtAll = conn.createStatement();
-			rsAllSaved = stmtAll.executeQuery(
-				"""
-					SELECT sellers.id AS SELLERIDFIELD, sellers.name AS SELLERNAMEFIELD, sellers.phone AS SELLERPHONEFIELD, realestates.id AS ADIDFIELD, realestates.sellerid AS ADSELLERIDFIELD
-					FROM realestates
-					INNER JOIN sellers ON realestates.sellerid = sellers.id
-					ORDER BY sellers.name ASC
-				""");
+			// 1. Külön lekérdezzük az eladó adatait
+			PreparedStatement sellerStmt = conn.prepareStatement("""
+				SELECT id, phone
+				FROM sellers
+				WHERE name = ?
+				LIMIT 1
+			""");
+			sellerStmt.setString(1, selectedName);
+			ResultSet sellerRs = sellerStmt.executeQuery();
 
-			ResultSet rs = rsAllSaved;
-			while (rs.next()) {
-				String sellerName = rs.getString("SELLERNAMEFIELD");
-				if (sellerName.contains(selectedName)) {
-					selectedSellerId = rs.getInt("SELLERIDFIELD");
+			if (sellerRs.next()) {
+				selectedSellerId = sellerRs.getInt("id");
+				eladoNeveLabel.setText(selectedName);
+				eladoTelefonszamaLabel.setText(sellerRs.getString("phone"));
 
-					eladoNeveLabel.setText(sellerName);
-					eladoTelefonszamaLabel.setText(rs.getString("SELLERPHONEFIELD"));
-
-					break;
-				}
+				// 2. esetleg, Frissítjük a hirdetések számát
+				//onHirdetesekBetolteseButtonClick();
 			}
+//			sellerRs.close();
+//			sellerStmt.close();
 		}
 	}
+
 }
