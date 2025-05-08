@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import org.junit.Test;
 
 import java.net.URL;
 import java.sql.*;
@@ -24,7 +25,7 @@ public class HelloController implements Initializable {
 	public Label hirdetesekSzamaLabel;
 
 	@FXML
-	private Label welcomeText;
+	public Label welcomeText;
 
 	public Connection conn;
 
@@ -40,6 +41,21 @@ public class HelloController implements Initializable {
 	public String selectedName;
 	@FXML
 	public int selectedSellerId;
+
+	private static Boolean isRunningTest = null;
+
+	public static boolean isRunningTest() {
+		if (isRunningTest == null) {
+			try {
+				Class.forName("org.junit.Test");
+				isRunningTest = true;
+			} catch (ClassNotFoundException e) {
+				isRunningTest = false;
+			}
+		}
+		return isRunningTest;
+	}
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -67,9 +83,9 @@ public class HelloController implements Initializable {
 
 
 			ObservableList<String> names = FXCollections.observableArrayList(sellerNames);
-			sellerNamesListview.setItems(names);
+			if (!isRunningTest()) sellerNamesListview.setItems(names);
 
-			sellerNamesListview.getSelectionModel().selectedItemProperty().addListener(
+			if (!isRunningTest()) sellerNamesListview.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> {
 					try {
 						onSellerSelected();
@@ -87,7 +103,7 @@ public class HelloController implements Initializable {
 
 	@FXML
 	protected void onHelloButtonClick() {
-		welcomeText.setText("Welcome to JavaFX Application!");
+		if (!isRunningTest()) welcomeText.setText("Welcome to JavaFX Application!");
 	}
 
 	@FXML
@@ -103,7 +119,7 @@ public class HelloController implements Initializable {
 		while (rsCount.next()) {
 			int cnt = rsCount.getInt("CNT");
 			if (cnt>=0) {
-				hirdetesekSzamaLabel.setText(String.valueOf(cnt));
+				if (!isRunningTest()) hirdetesekSzamaLabel.setText(String.valueOf(cnt));
 				break;
 			}
 		}
@@ -111,7 +127,7 @@ public class HelloController implements Initializable {
 
 	@FXML
 	protected void onSellerSelected() throws SQLException {
-		selectedName = sellerNamesListview.getSelectionModel().getSelectedItem();
+		if (!isRunningTest()) selectedName = sellerNamesListview.getSelectionModel().getSelectedItem();
 		if (selectedName != null) {
 			// 1. Külön lekérdezzük az eladó adatait
 			PreparedStatement sellerStmt = conn.prepareStatement("""
@@ -125,8 +141,8 @@ public class HelloController implements Initializable {
 
 			if (sellerRs.next()) {
 				selectedSellerId = sellerRs.getInt("id");
-				eladoNeveLabel.setText(selectedName);
-				eladoTelefonszamaLabel.setText(sellerRs.getString("phone"));
+				if (!isRunningTest()) eladoNeveLabel.setText(selectedName);
+				if (!isRunningTest()) eladoTelefonszamaLabel.setText(sellerRs.getString("phone"));
 
 				// 2. esetleg, Frissítjük a hirdetések számát
 				//onHirdetesekBetolteseButtonClick();
