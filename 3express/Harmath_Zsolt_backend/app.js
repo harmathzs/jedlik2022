@@ -24,12 +24,17 @@ app.get('/', (req, res) => {
 
 app.get('/api/ingatlan', (req, res) => {
     connection.query('SELECT ingatlanok.id, kategoriak.id, kategoriak.nev AS kategoria, leiras, hirdetesDatuma, tehermentes, ar, kepUrl FROM ingatlanok INNER JOIN kategoriak ON ingatlanok.kategoria=kategoriak.id', (err, results) => {
-    if (err) {
-      res.status(500).json({ error: 'Database error' });
-      return;
-    }
-    res.status(200).json(results);
-  });
+        if (err) {
+            res.status(500).json({ error: 'Database error' });
+            return;
+        }
+        // Convert tehermentes from 0/1 to false/true
+        const refactoredResults = results.map(row => ({
+            ...row,
+            tehermentes: !!row.tehermentes // Converts 0 to false, 1 to true
+        }));
+        res.status(200).json(refactoredResults);
+    });
 });
 
 app.listen(port, () => {
