@@ -42,6 +42,10 @@
     min-height: 100vh;
 }
 
+.card-header {
+    color: rgb(217, 243, 240);    
+}
+
 .card-text {
     text-align: justify;
 }
