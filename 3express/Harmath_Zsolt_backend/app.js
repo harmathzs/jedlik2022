@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/ingatlan', (req, res) => {
-    connection.query('SELECT ingatlanok.id, kategoriak.id, kategoriak.nev, leiras, hirdetesDatuma, tehermentes, ar, kepUrl FROM ingatlanok INNER JOIN kategoriak ON ingatlanok.kategoria=kategoriak.id', (err, results) => {
+    connection.query('SELECT ingatlanok.id, kategoriak.id, kategoriak.nev AS kategoria, leiras, hirdetesDatuma, tehermentes, ar, kepUrl FROM ingatlanok INNER JOIN kategoriak ON ingatlanok.kategoria=kategoriak.id', (err, results) => {
     if (err) {
       res.status(500).json({ error: 'Database error' });
       return;
