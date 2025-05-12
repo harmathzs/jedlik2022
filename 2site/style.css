@@ -1,5 +1,7 @@
 .start {
     background-image: url('img/real-estate-agent.png');
+    background-position: center;
+    background-size: cover;
     min-height: 100vh;
 }
 
