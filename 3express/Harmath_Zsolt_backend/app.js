@@ -18,6 +18,9 @@ connection.connect(err => {
   console.log('Connected to MySQL database.');
 });
 
+// Add this line to parse JSON request bodies
+app.use(express.json());
+
 // curl http://localhost:3000
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -41,6 +44,9 @@ app.get('/api/ingatlan', (req, res) => {
 
 app.post('/api/ingatlan', (req, res) => {
   let result = {result: 'no result'};
+
+  //console.log('req', req);
+  console.log('req.body', req?.body);
 
   let id = +req?.body?._id;
   let kategoria = +req?.body?.kategoria;
@@ -73,7 +79,7 @@ app.post('/api/ingatlan', (req, res) => {
     leiras,
     new Date(hirdetesDatuma),
     tehermentes ? 1 : 0,  // Convert boolean to MySQL TINYINT (0/1)
-    numericAr,
+    ar,
     kepUrl
   ];
 
