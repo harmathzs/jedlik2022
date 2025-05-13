@@ -18,10 +18,12 @@ connection.connect(err => {
   console.log('Connected to MySQL database.');
 });
 
+// curl http://localhost:3000
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+// curl http://localhost:3000/api/ingatlan
 app.get('/api/ingatlan', (req, res) => {
     connection.query('SELECT ingatlanok.id, kategoriak.id, kategoriak.nev AS kategoria, leiras, hirdetesDatuma, tehermentes, ar, kepUrl FROM ingatlanok INNER JOIN kategoriak ON ingatlanok.kategoria=kategoriak.id', (err, results) => {
         if (err) {
@@ -35,6 +37,56 @@ app.get('/api/ingatlan', (req, res) => {
         }));
         res.status(200).json(refactoredResults);
     });
+});
+
+app.post('/api/ingatlan', (req, res) => {
+  let result = {result: 'no result'};
+
+  let id = +req?.body?._id;
+  let kategoria = +req?.body?.kategoria;
+  let leiras = req?.body?.leiras;
+  let hirdetesDatuma = req?.body?.hirdetesDatuma;
+  let tehermentes = !!req?.body?.tehermentes;
+  let ar = +req?.body?.ar;
+  let kepUrl = req?.body?.kepUrl;
+
+  let newIngatlan = {
+    id: id,
+    kategoria: kategoria,
+    leiras: leiras,
+    hirdetesDatuma: hirdetesDatuma,
+    tehermentes: tehermentes,
+    ar: ar,
+    kepUrl: kepUrl,
+  };
+  console.log('newIngatlan', newIngatlan);
+
+  const sql = `
+    INSERT INTO ingatlanok 
+    (id, kategoria, leiras, hirdetesDatuma, tehermentes, ar, kepUrl)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `;
+  
+  const values = [
+    id,
+    kategoria,
+    leiras,
+    new Date(hirdetesDatuma),
+    tehermentes ? 1 : 0,  // Convert boolean to MySQL TINYINT (0/1)
+    numericAr,
+    kepUrl
+  ];
+
+  connection.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Database error:', err);
+      return res.status(500).json({ error: 'Failed to create record' });
+    } else {
+
+    }
+  });
+
+  res.json(result);
 });
 
 app.listen(port, () => {
