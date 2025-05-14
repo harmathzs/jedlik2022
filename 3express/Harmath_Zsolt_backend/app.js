@@ -67,7 +67,7 @@ app.post('/api/ingatlan', (req, res) => {
   };
   console.log('newIngatlan', newIngatlan);
 
-  const sql = `
+  let sql = `
     INSERT INTO ingatlanok 
     (id, kategoria, leiras, hirdetesDatuma, tehermentes, ar, kepUrl)
     VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -94,13 +94,11 @@ app.post('/api/ingatlan', (req, res) => {
   connection.query(sql, values, (err, result) => {
     if (err) {
       console.error('Database error:', err);
-      return res.status(500).json({ error: 'Failed to create record' });
+      return res.status(400).json('Hiányos adatok.');
     } else {
-
+      return res.status(201).json({Id: id});
     }
   });
-
-  res.json(result);
 });
 
 app.listen(port, () => {
