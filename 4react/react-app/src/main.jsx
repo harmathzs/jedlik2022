@@ -2,10 +2,13 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-import Openpage from './openpage.jsx';
+import Openpage from './Openpage.jsx';
+import { BrowserRouter } from 'react-router-dom';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Openpage />
+    <BrowserRouter>
+      <Openpage />
+    </BrowserRouter>
   </StrictMode>,
 )
