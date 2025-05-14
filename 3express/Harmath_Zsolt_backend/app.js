@@ -52,11 +52,11 @@ app.post('/api/ingatlan', (req, res) => {
   let kategoria = +req?.body?.kategoria;
   let leiras = req?.body?.leiras;
   let hirdetesDatuma = req?.body?.hirdetesDatuma;
-  let tehermentes = !!req?.body?.tehermentes;
+  let tehermentes = req?.body?.tehermentes;
   let ar = +req?.body?.ar;
   let kepUrl = req?.body?.kepUrl;
 
-  if (!kategoria || !leiras || !hirdetesDatuma || !tehermentes || !ar || !kepUrl) {
+  if (!kategoria || !leiras || !hirdetesDatuma || tehermentes==null || !ar || !kepUrl) {
     return res.status(400).json('Hiányos adatok.');
   }
 
@@ -71,10 +71,13 @@ app.post('/api/ingatlan', (req, res) => {
   };
   console.log('newIngatlan', newIngatlan);
 
+  let idStr = id ? 'id,' : '';
+  let idQmark = id ? '?,' : '';
+
   let sql = `
     INSERT INTO ingatlanok 
-    (id, kategoria, leiras, hirdetesDatuma, tehermentes, ar, kepUrl)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    (${idStr} kategoria, leiras, hirdetesDatuma, tehermentes, ar, kepUrl)
+    VALUES (${idQmark} ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE
       kategoria = VALUES(kategoria),
       leiras = VALUES(leiras),
@@ -84,9 +87,10 @@ app.post('/api/ingatlan', (req, res) => {
       kepUrl = VALUES(kepUrl)
   `;
 
+  let values = id ? [id,] : [];
   
-  const values = [
-    id,
+  values = [...values,
+
     kategoria,
     leiras,
     new Date(hirdetesDatuma),
