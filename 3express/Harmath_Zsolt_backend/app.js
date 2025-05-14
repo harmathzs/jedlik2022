@@ -56,6 +56,10 @@ app.post('/api/ingatlan', (req, res) => {
   let ar = +req?.body?.ar;
   let kepUrl = req?.body?.kepUrl;
 
+  if (!kategoria || !leiras || !hirdetesDatuma || !tehermentes || !ar || !kepUrl) {
+    return res.status(400).json('Hiányos adatok.');
+  }
+
   let newIngatlan = {
     id: id,
     kategoria: kategoria,
