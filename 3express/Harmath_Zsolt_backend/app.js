@@ -71,7 +71,15 @@ app.post('/api/ingatlan', (req, res) => {
     INSERT INTO ingatlanok 
     (id, kategoria, leiras, hirdetesDatuma, tehermentes, ar, kepUrl)
     VALUES (?, ?, ?, ?, ?, ?, ?)
+    ON DUPLICATE KEY UPDATE
+      kategoria = VALUES(kategoria),
+      leiras = VALUES(leiras),
+      hirdetesDatuma = VALUES(hirdetesDatuma),
+      tehermentes = VALUES(tehermentes),
+      ar = VALUES(ar),
+      kepUrl = VALUES(kepUrl)
   `;
+
   
   const values = [
     id,
