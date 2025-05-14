@@ -104,7 +104,8 @@ app.post('/api/ingatlan', (req, res) => {
       console.error('Database error:', err);
       return res.status(400).json('Hiányos adatok.');
     } else {
-      return res.status(201).json({Id: id});
+      console.log('result', result);
+      return res.status(201).json({Id: result?.insertId ?? id});
     }
   });
 });
