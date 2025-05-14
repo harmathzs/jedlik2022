@@ -42,6 +42,7 @@ app.get('/api/ingatlan', (req, res) => {
     });
 });
 
+// curl.exe -X POST http://localhost:3000/api/ingatlan -H "Content-Type: application/json" -d "@data.json"
 app.post('/api/ingatlan', (req, res) => {
   let result = {result: 'no result'};
 
@@ -109,6 +110,33 @@ app.post('/api/ingatlan', (req, res) => {
     }
   });
 });
+
+// curl.exe -X DELETE http://localhost:3000/api/ingatlan/99
+app.delete('/api/ingatlan/:id', (req, res) => {
+  const id = req?.params?.id;
+  
+  // 1. Use parameterized query with ? placeholder
+  const sql = 'DELETE FROM ingatlanok WHERE id = ?';
+  
+  // 2. Pass parameters as an array
+  connection.query(sql, [id], (err, results) => {
+    if (err) {
+      // 3. Handle database errors first
+      console.error('Database error:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    
+    // 4. Check if any rows were affected
+    if (results.affectedRows === 0) {
+      return res.status(404).json('Az ingatlan nem létezik.' );
+    }
+    
+    // 5. Proper 204 No Content response
+    console.log('204 No Content');
+    res.sendStatus(204);
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
