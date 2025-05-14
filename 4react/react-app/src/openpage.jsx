@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import '../../Bootstrap UI/bootstrap.min.css';
 import './App.css';
+import './openpage.css';
 
 function Openpage() {
     return(
