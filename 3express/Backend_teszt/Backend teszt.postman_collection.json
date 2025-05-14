@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "81c1c00c-8dbd-416a-9580-a80276f44115",
+		"name": "Backend teszt",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42371683"
+	},
+	"item": [
+		{
+			"name": "Query ingatlanok",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/ingatlan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ingatlan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert new ingatlan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"_id\": 99,\r\n  \"kategoria\": 2,\r\n  \"leiras\": \"Eladó ...\",\r\n  \"hirdetesDatuma\": \"2022-03-19\",\r\n  \"tehermentes\": true,\r\n  \"ar\": 45000000,\r\n  \"kepUrl\": \"https://pictures.com/apartman.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/ingatlan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ingatlan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete ingatlan",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/ingatlan/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ingatlan",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "99"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
