@@ -8,16 +8,25 @@ export default function Offers() {
     const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
-      fetch('http://localhost:5000/api/kategoriak')
-      .then(res => res.json()) // <-- itt olvasod ki a body-t JS objektummá
-      .then(resBody => {
-        console.log('resBody', resBody);
+      async function fetchKategoriak() {
+        const res = await fetch('http://localhost:5000/api/kategoriak');
+        const resBody = await res.json();
+        console.log('fetchKategoriak resBody', resBody);
         setLoading(false);
-      })
-      .catch(err => {
+      }
+      async function fetchIngatlanok() {
+        const res = await fetch('http://localhost:5000/api/ingatlan');
+        const resBody = await res.json();
+        console.log('fetchIngatlanok resBody', resBody);
+        setLoading(false);
+      }
+
+      try {
+        fetchKategoriak();
+        fetchIngatlanok();
+      } catch (err) {
         console.warn(err);
-        setLoading(false);
-      });
+      }
     }, []);
 
     
