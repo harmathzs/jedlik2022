@@ -71,6 +71,7 @@ export default function NewAd() {
                         <input type="url" className="form-control" name="kepUrl" />
                     </div>
                     <div className="mb-3 text-center">
+                        {/* curl.exe -X POST http://localhost:5000/api/ujingatlan -H "Content-Type: application/json" -d "@data.json" */}
                         <button className="btn btn-primary px-5">Küldés</button>
                     </div>
 
