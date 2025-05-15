@@ -9,7 +9,7 @@ export default function Offers() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchData() {
       try {
         // Párhuzamosan lefuttatjuk mindkét fetch kérést
         const [kategoriaResponse, ingatlanResponse] = await Promise.all([
