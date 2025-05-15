@@ -2,8 +2,39 @@ import React, { useState, useEffect } from 'react';
 import '../../Bootstrap UI/bootstrap.min.css';
 
 export default function NewAd() {
+    const [kategoriak, setKategoriak] = useState([]);
     const [showError, setShowError] = useState(false);
     const [errorText, setErrorText] = useState('Hiba szövege');
+
+    useEffect(() => {
+        async function fetchData() {
+          try {
+            // Párhuzamosan lefuttatjuk mindkét fetch kérést
+            const [kategoriaResponse, ingatlanResponse] = await Promise.all([
+              fetch('http://localhost:5000/api/kategoriak'),
+              fetch('http://localhost:5000/api/ingatlan')
+            ]);
+    
+            const kategoriakData = await kategoriaResponse.json();
+            const ingatlanokData = await ingatlanResponse.json();
+    
+            setKategoriak(kategoriakData);
+            //setIngatlanok(ingatlanokData);
+          } catch (err) {
+            console.warn(err);
+          } finally {
+            //setLoading(false);
+          }
+        };
+    
+        fetchData();
+      }, []);
+
+    useEffect(() => {
+        if (kategoriak.length > 0) {
+          console.log('Kategóriák betöltve:', kategoriak);
+        }
+      }, [kategoriak]);
 
     return (
         <div className="container">
