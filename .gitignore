@@ -45,3 +45,6 @@ config
 
 # Git
 github/
+
+# Skip .zip files
+*.zip
