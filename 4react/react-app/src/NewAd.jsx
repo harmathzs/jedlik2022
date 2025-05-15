@@ -3,6 +3,7 @@ import '../../Bootstrap UI/bootstrap.min.css';
 
 export default function NewAd() {
     const [showError, setShowError] = useState(false);
+    const [errorText, setErrorText] = useState('Hiba szövege');
 
     return (
         <div className="container">
@@ -44,7 +45,7 @@ export default function NewAd() {
 
                     {showError && (
                     <div className="alert alert-danger alert-dismissible" role="alert">
-                        <strong>Hiba szövege</strong>
+                        <strong>{errorText}</strong>
                         <button
                         type="button"
                         className="btn-close"
