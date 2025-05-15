@@ -15,7 +15,7 @@ export default function Openpage() {
                         <Link className="btn btn-primary" to="/offers">Nézze meg kínálatunkat!</Link>
                     </div>
                     <div className="col-12 col-sm-6 text-center">
-                        <a className="btn btn-primary" href="#">Hirdessen nálunk!</a>
+                        <Link className="btn btn-primary" to="/newad">Hirdessen nálunk!</Link>
                     </div>
                 </div>
             </div>

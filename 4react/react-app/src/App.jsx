@@ -3,7 +3,10 @@ import { Routes, Route } from 'react-router-dom';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import '../../Bootstrap UI/bootstrap.min.css'
-import './App.css'
+import Openpage from './Openpage';
+import Offers from './Offers';
+import NewAd from './NewAd';
+import './App.css';
 
 function App() {
   //const [count, setCount] = useState(0)
