@@ -1,6 +1,9 @@
+import React, { useState, useEffect } from 'react';
 import '../../Bootstrap UI/bootstrap.min.css';
 
 export default function NewAd() {
+    const [showError, setShowError] = useState(false);
+
     return (
         <div className="container">
             <h2 className="mb-4 text-center">Új hirdetés elküldése</h2>
@@ -39,7 +42,7 @@ export default function NewAd() {
                         <button className="btn btn-primary px-5">Küldés</button>
                     </div>
 
-                    <div className="alert alert-danger alert-dismissible" role="alert">
+                    <div className="alert alert-danger alert-dismissible" role="alert" if={showError}>
                         <strong>Hiba szövege</strong>
                         <button type="button" className="btn-close"></button>
                     </div>
