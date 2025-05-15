@@ -42,10 +42,17 @@ export default function NewAd() {
                         <button className="btn btn-primary px-5">Küldés</button>
                     </div>
 
-                    <div className="alert alert-danger alert-dismissible" role="alert" if={showError}>
+                    {showError && (
+                    <div className="alert alert-danger alert-dismissible" role="alert">
                         <strong>Hiba szövege</strong>
-                        <button type="button" className="btn-close"></button>
+                        <button
+                        type="button"
+                        className="btn-close"
+                        onClick={() => setShowError(false)}
+                        aria-label="Bezárás"
+                        ></button>
                     </div>
+                    )}
 
                 </div>
             </div>
