@@ -1,8 +1,5 @@
-import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import '../../Bootstrap UI/bootstrap.min.css'
+import '../../Bootstrap UI/bootstrap.min.css';
 import Openpage from './Openpage';
 import Offers from './Offers';
 import NewAd from './NewAd';
