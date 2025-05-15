@@ -7,7 +7,7 @@ export default function NewAd() {
             <div className="row">
                 <div className="offset-lg-3 offset-md-2 col-lg-6 col-md-8 col-12">
                     <div className="mb-3">
-                        <label for="category" className="form-label">Ingatlan kategóriája</label>
+                        <label htmlFor="category" className="form-label">Ingatlan kategóriája</label>
                         <select className="form-select" name="kategoriaId">
                             <option value="0">Kérem válasszon</option>
                             <option value="1">Ház</option>
@@ -20,19 +20,19 @@ export default function NewAd() {
                     </div>
 
                     <div className="mb-3">
-                        <label for="date" className="form-label">Hirdetés dátuma</label>
+                        <label htmlFor="date" className="form-label">Hirdetés dátuma</label>
                         <input type="date" className="form-control" name="hirdetesDatuma" />
                     </div>
                     <div className="mb-3">
-                        <label for="description" className="form-label">Ingatlan leírása</label>
+                        <label htmlFor="description" className="form-label">Ingatlan leírása</label>
                         <textarea className="form-control" name="leiras" rows="3"></textarea>
                     </div>
                     <div className="form-check mb-3">
-                        <input className="form-check-input" type="checkbox" name="tehermentes" checked />
-                        <label className="form-check-label" for="creditFree">Tehermentes ingatlan</label>
+                        <input className="form-check-input" type="checkbox" name="tehermentes" defaultChecked="true" />
+                        <label className="form-check-label" htmlFor="creditFree">Tehermentes ingatlan</label>
                     </div>
                     <div className="mb-3">
-                        <label for="pictureUrl" className="form-label">Fénykép az ingatlanról</label>
+                        <label htmlFor="pictureUrl" className="form-label">Fénykép az ingatlanról</label>
                         <input type="url" className="form-control" name="kepUrl" />
                     </div>
                     <div className="mb-3 text-center">
