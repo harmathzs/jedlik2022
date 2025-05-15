@@ -46,32 +46,36 @@ export default function Offers() {
   }, [ingatlanok]);
 
   return (
-    <div>
-      <h2>Ingatlanok</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Kategória</th>
-            <th>Leírás</th>
-            <th>Hirdetés dátuma</th>
-            <th>Tehermentes</th>
-            <th>Fénykép</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ingatlanok.map(ing => (
-            <tr key={ing.id}>
-              <td>{ing.kategoriaNev}</td>
-              <td>{ing.leiras}</td>
-              <td>{ing.hirdetesDatuma}</td>
-              <td>{ing.tehermentes ? "Igen" : "Nem"}</td>
-              <td>
-                <img src={ing.kepUrl} alt={ing.kategoriaNev} style={{maxWidth: "100px"}} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+    <>
+      {loading ? (<div>Betöltés...</div>) : (
+        <div>
+          <h2>Ingatlanok</h2>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Kategória</th>
+                <th>Leírás</th>
+                <th>Hirdetés dátuma</th>
+                <th>Tehermentes</th>
+                <th>Fénykép</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ingatlanok.map(ing => (
+                <tr key={ing.id}>
+                  <td>{ing.kategoriaNev}</td>
+                  <td>{ing.leiras}</td>
+                  <td>{ing.hirdetesDatuma}</td>
+                  <td>{ing.tehermentes ? "Igen" : "Nem"}</td>
+                  <td>
+                    <img src={ing.kepUrl} alt={ing.kategoriaNev} style={{maxWidth: "100px"}} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      )}
+    </>
   );
 }
