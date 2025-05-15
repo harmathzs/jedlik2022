@@ -53,11 +53,14 @@ export default function NewAd() {
             kepUrl: form.kepUrl.value
         };
 
+        let responseBodyJson = JSON.stringify(formData);
+        console.log('responseBodyJson', responseBodyJson);
+
         try {
         const response = await fetch('http://localhost:5000/api/ujingatlan', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
+            body: responseBodyJson
         });
 
         if (!response.ok) {
