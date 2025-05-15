@@ -9,8 +9,9 @@ export default function Offers() {
 
     useEffect(()=>{
       fetch('http://localhost:5000/api/kategoriak')
-      .then(res => {
-        console.log('res', res);
+      .then(res => res.json()) // <-- itt olvasod ki a body-t JS objektummá
+      .then(resBody => {
+        console.log('resBody', resBody);
         setLoading(false);
       })
       .catch(err => {
