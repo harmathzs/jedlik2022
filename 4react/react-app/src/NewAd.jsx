@@ -64,7 +64,7 @@ export default function NewAd() {
         } else {
             setShowError(false);
             // Sikeres küldés után például átirányítás vagy üzenet
-            alert('Hirdetés sikeresen elküldve!');
+            console.log('Hirdetés sikeresen elküldve!');
             form.reset();
         }
         } catch (error) {
