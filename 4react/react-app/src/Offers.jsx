@@ -8,26 +8,36 @@ export default function Offers() {
     const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
-
+      fetch('http://localhost:5000/api/kategoriak')
+      .then(res => {
+        console.log('res', res);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.warn(err);
+        setLoading(false);
+      });
     }, []);
 
+    
+
     return (
-    <div className="container mt-4">
-      <h2>Ingatlanok listája</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Cím</th>
-            <th>Típus</th>
-            <th>Ár</th>
-            <th>Méret</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </Table>
-    </div>
-  );
+      <div className="container mt-4">
+        <h2>Ingatlanok listája</h2>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Cím</th>
+              <th>Típus</th>
+              <th>Ár</th>
+              <th>Méret</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </Table>
+      </div>
+    );
 
   /* 
             {data.map(item => (
