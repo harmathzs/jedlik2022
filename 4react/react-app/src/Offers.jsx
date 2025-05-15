@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table } from 'react-bootstrap';
+import { Spinner, Table } from 'react-bootstrap';
 import '../../Bootstrap UI/bootstrap.min.css';
 import './App.css';
 
@@ -47,7 +47,13 @@ export default function Offers() {
 
   return (
     <>
-      {loading ? (<div>Betöltés...</div>) : (
+      {loading ? (
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "40vh" }}>
+          <Spinner animation="border" role="status" variant="primary" style={{ width: "4rem", height: "4rem" }}>
+            <span className="visually-hidden">Betöltés...</span>
+          </Spinner>
+        </div>
+      ) : (
         <div>
           <h2>Ingatlanok</h2>
           <Table striped bordered hover>
