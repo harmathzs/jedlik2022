@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../Bootstrap UI/bootstrap.min.css';
 
 export default function NewAd() {
+    const navigate = useNavigate(); // 2. Hook inicializálása
+
     const [kategoriak, setKategoriak] = useState([]);
     const [showError, setShowError] = useState(false);
     const [errorText, setErrorText] = useState('Hiba szövege');
@@ -66,6 +69,7 @@ export default function NewAd() {
             // Sikeres küldés után például átirányítás vagy üzenet
             console.log('Hirdetés sikeresen elküldve!');
             form.reset();
+            navigate('/offers'); // 3. Átirányítás sikeres küldés után
         }
         } catch (error) {
             setErrorText('Hálózati hiba: '+error);
