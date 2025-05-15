@@ -4,60 +4,76 @@ import '../../Bootstrap UI/bootstrap.min.css';
 import './App.css';
 
 export default function Offers() {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [kategoriak, setKategoriak] = useState([]);
+  const [ingatlanok, setIngatlanok] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(()=>{
-      async function fetchKategoriak() {
-        const res = await fetch('http://localhost:5000/api/kategoriak');
-        const resBody = await res.json();
-        console.log('fetchKategoriak resBody', resBody);
-        setLoading(false);
-      }
-      async function fetchIngatlanok() {
-        const res = await fetch('http://localhost:5000/api/ingatlan');
-        const resBody = await res.json();
-        console.log('fetchIngatlanok resBody', resBody);
-        setLoading(false);
-      }
-
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        fetchKategoriak();
-        fetchIngatlanok();
+        // Párhuzamosan lefuttatjuk mindkét fetch kérést
+        const [kategoriaResponse, ingatlanResponse] = await Promise.all([
+          fetch('http://localhost:5000/api/kategoriak'),
+          fetch('http://localhost:5000/api/ingatlan')
+        ]);
+
+        const kategoriakData = await kategoriaResponse.json();
+        const ingatlanokData = await ingatlanResponse.json();
+
+        setKategoriak(kategoriakData);
+        setIngatlanok(ingatlanokData);
       } catch (err) {
         console.warn(err);
+      } finally {
+        setLoading(false);
       }
-    }, []);
+    };
 
-    
+    fetchData();
+  }, []);
 
-    return (
-      <div className="container mt-4">
-        <h2>Ingatlanok listája</h2>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Cím</th>
-              <th>Típus</th>
-              <th>Ár</th>
-              <th>Méret</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </Table>
-      </div>
-    );
+  // Ezek a useEffect-ek fogják jelezni az állapotváltozásokat
+  useEffect(() => {
+    if (kategoriak.length > 0) {
+      console.log('Kategóriák betöltve:', kategoriak);
+    }
+  }, [kategoriak]);
 
-  /* 
-            {data.map(item => (
-            <tr key={item.id}>
-              <td>{item.cim}</td>
-              <td>{item.tipus}</td>
-              <td>{item.ar} Ft</td>
-              <td>{item.m2} m²</td>
-            </tr>
-          ))}
+  useEffect(() => {
+    if (ingatlanok.length > 0) {
+      console.log('Ingatlanok betöltve:', ingatlanok);
+    }
+  }, [ingatlanok]);
 
-  */
+  return (
+    <div>
+      {loading ? (
+        <div>Betöltés...</div>
+      ) : (
+        <>
+          {/* Kategóriák megjelenítése */}
+          <div>
+            <h3>Kategóriák</h3>
+            <ul>
+              {kategoriak.map(kategoria => (
+                <li key={kategoria.id}>{kategoria.nev}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Ingatlanok megjelenítése */}
+          <div>
+            <h3>Ingatlanok</h3>
+            <ul>
+              {ingatlanok.map(ingatlan => (
+                <li key={ingatlan.id}>
+                  {ingatlan.cim} - {ingatlan.ar} Ft
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
+    </div>
+  );
 }
