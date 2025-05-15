@@ -47,33 +47,31 @@ export default function Offers() {
 
   return (
     <div>
-      {loading ? (
-        <div>Betöltés...</div>
-      ) : (
-        <>
-          {/* Kategóriák megjelenítése */}
-          <div>
-            <h3>Kategóriák</h3>
-            <ul>
-              {kategoriak.map(kategoria => (
-                <li key={kategoria.id}>{kategoria.nev}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Ingatlanok megjelenítése */}
-          <div>
-            <h3>Ingatlanok</h3>
-            <ul>
-              {ingatlanok.map(ingatlan => (
-                <li key={ingatlan.id}>
-                  {ingatlan.cim} - {ingatlan.ar} Ft
-                </li>
-              ))}
-            </ul>
-          </div>
-        </>
-      )}
+      <h2>Ingatlanok</h2>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Kategória</th>
+            <th>Leírás</th>
+            <th>Hirdetés dátuma</th>
+            <th>Tehermentes</th>
+            <th>Fénykép</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ingatlanok.map(ing => (
+            <tr key={ing.id}>
+              <td>{ing.kategoriaNev}</td>
+              <td>{ing.leiras}</td>
+              <td>{ing.hirdetesDatuma}</td>
+              <td>{ing.tehermentes ? "Igen" : "Nem"}</td>
+              <td>
+                <img src={ing.kepUrl} alt={ing.kategoriaNev} style={{maxWidth: "100px"}} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 }
