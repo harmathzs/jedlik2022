@@ -21,7 +21,7 @@ export default function NewAd() {
 
                     <div className="mb-3">
                         <label htmlFor="date" className="form-label">Hirdetés dátuma</label>
-                        <input type="date" className="form-control" name="hirdetesDatuma" />
+                        <input type="date" className="form-control" name="hirdetesDatuma" readOnly={true} defaultValue={new Date().toISOString().slice(0, 10)} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="description" className="form-label">Ingatlan leírása</label>
