@@ -43,15 +43,15 @@ export default function NewAd() {
                 <div className="offset-lg-3 offset-md-2 col-lg-6 col-md-8 col-12">
                     <div className="mb-3">
                         <label htmlFor="category" className="form-label">Ingatlan kategóriája</label>
-                        <select className="form-select" name="kategoriaId">
+                        <select className="form-select" name="kategoriaId" defaultValue="0">
                             <option value="0">Kérem válasszon</option>
-                            <option value="1">Ház</option>
-                            <option value="2">Lakás</option>
-                            <option value="3">Építési telek</option>
-                            <option value="4">Garázs</option>
-                            <option value="5">Mezőgazdasági terület</option>
-                            <option value="6">Ipari ingatlan</option>
+                            {kategoriak.map(kat => (
+                                <option key={kat.id} value={kat.id}>
+                                {kat.megnevezes}
+                                </option>
+                            ))}
                         </select>
+
                     </div>
 
                     <div className="mb-3">
