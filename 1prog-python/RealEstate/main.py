@@ -1,5 +1,6 @@
 import datetime
 import json
+import math
 
 
 class Category:
@@ -56,6 +57,13 @@ class Ad:
 		for jsonLoadedAd in jsonLoaded:
 			ads.append(Ad(jsonLoadedAd))
 		return ads
+
+	def DistanceTo(self, otherLatLong):
+		[x1str, y1str] = self.LatLong.split(',')
+		x1, y1 = float(x1str), float(y1str)
+		[x2str, y2str] = otherLatLong.split(',')
+		x2, y2 = float(x2str), float(y2str)
+		return math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1))
 
 
 ads = Ad.LoadFromJson('realestates.json')
