@@ -76,3 +76,16 @@ for ad in ads:
 avg0area = sum(floor0areas) / len(floor0areas)
 print(f'1. Földszinti ingatlanok átlagos alapterülete: {round(avg0area, 2)} m2')
 
+# 8. feladat:
+near = None
+distance = +math.inf
+mesevarLatLong = '47.4164220114023,19.066342425796986'
+for ad in ads:
+	if ad.FreeOfCharge and ad.DistanceTo(mesevarLatLong)<distance:
+		near = ad
+		distance = ad.DistanceTo(mesevarLatLong)
+print('2. Mesevár óvodához légvonalban legközelebbi tehermentes ingatlan adatai:')
+print(f'\t\tEladó neve     : {near.Seller.Name}')
+print(f'\t\tEladó telefonja: {near.Seller.Phone}')
+print(f'\t\tAlapterület    : {near.Area}')
+print(f'\t\tSzobák száma   : {near.Rooms}')
