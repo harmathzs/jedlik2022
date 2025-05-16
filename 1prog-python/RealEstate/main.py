@@ -5,11 +5,18 @@ import json
 class Category:
 	Id: int
 	Name: str
+	def __init__(self, dictCategory):
+		self.Id = dictCategory['id']
+		self.Name = dictCategory['name']
 
 class Seller:
 	Id: int
 	Name: str
 	Phone: str
+	def __init__(self, dictSeller):
+		self.Id = dictSeller['id']
+		self.Name = dictSeller['name']
+		self.Phone = dictSeller['phone']
 
 class Ad:
 	Area: int
@@ -25,8 +32,19 @@ class Ad:
 	Seller: Seller
 
 	def __init__(self, dictAd):
-		print(type(dictAd))
+		#print(type(dictAd))
 		#<class 'dict'>
+		self.Id = dictAd['id']
+		self.Rooms = dictAd['rooms']
+		self.LatLong = dictAd['latLong']
+		self.Floors = dictAd['floors']
+		self.Area = dictAd['area']
+		self.Description = dictAd['description']
+		self.FreeOfCharge = dictAd['freeOfCharge']
+		self.ImageUrl = dictAd['imageUrl']
+		self.Seller = Seller(dictAd['seller'])
+		self.Category = Category(dictAd['category'])
+		self.CreateAt = dictAd['createAt']
 
 	@staticmethod
 	def LoadFromJson(filename):
