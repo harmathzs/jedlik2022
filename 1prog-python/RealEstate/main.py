@@ -60,4 +60,11 @@ class Ad:
 
 ads = Ad.LoadFromJson('realestates.json')
 
+# 6. feladat:
+floor0areas = []
+for ad in ads:
+	if ad.Floors <1:
+		floor0areas.append(ad.Area)
+avg0area = sum(floor0areas) / len(floor0areas)
+print(f'1. Földszinti ingatlanok átlagos alapterülete: {round(avg0area, 2)} m2')
 
