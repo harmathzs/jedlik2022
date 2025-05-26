@@ -15,5 +15,7 @@ export async function fetchData(setKategoriak) {
     console.warn(err);
     } finally {
     //setLoading(false);
+
+        return 0;
     }
 };
