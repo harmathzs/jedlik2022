@@ -1,11 +1,18 @@
 package com.example.realestategui;
 
 import javafx.scene.control.Label;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class TestApplication {
 	public RealEstateController controller;
+
+	@BeforeClass
+	public static void testBeforeAll() {
+		RealEstateController.isRunningTest = true;
+	}
 
 	@Before
 	public void testFactory() {
@@ -17,5 +24,10 @@ public class TestApplication {
 	@Test
 	public void testApp() {
 		controller.onHelloButtonClick();
+	}
+
+	@AfterClass
+	public static void testAfterAll() {
+		RealEstateController.isRunningTest = false;
 	}
 }
