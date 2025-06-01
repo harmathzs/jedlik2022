@@ -5,11 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TestApplication {
-	public HelloController controller;
+	public RealEstateController controller;
 
 	@Before
 	public void testFactory() {
-		controller = new HelloController();
+		controller = new RealEstateController();
 		//controller.welcomeText = new Label("test");
 		controller.initialize(null, null);
 	}

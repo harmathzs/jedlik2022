@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import org.junit.Test;
 
 import java.net.URL;
 import java.sql.*;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
+public class RealEstateController implements Initializable {
 	@FXML
 	public ListView<String> sellerNamesListview;
 	@FXML
